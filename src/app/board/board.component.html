@@ -1,1 +1,24 @@
 <p>board works!</p>
+<div class="lists-wrapper" *ngIf="board">
+    <h2><i class="fas fa-clipboard-list m-r-10"></i> {{board.board_name}}</h2>
+    <div class="mdc-layout-grid" *ngIf="lists">
+      <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell--span-3" *ngFor="let list of lists">
+          <app-list [board]="board" [list]="list" (deleteListEvent)="deleteListHandler(list);" (updateListEvent)="updateListHandler(list);"></app-list>
+        </div>
+        <div class="mdc-layout-grid__cell--span-3">
+          <mat-card class="list-card">
+            <mat-card-content>
+              <mat-form-field class="full-width">
+                <input matInput placeholder="List Name" value="" #listName>
+              </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-flat-button color="primary" (click)="addList(listName.value); listName.value=''">Add</button>
+            </mat-card-actions>
+          </mat-card> 
+        </div>
+      </div>
+    </div>
+  </div>
+  
