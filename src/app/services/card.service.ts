@@ -22,23 +22,23 @@ export class CardService {
     );
   }
   addCard(boardId:number,listID: string, card: Card): Observable<Card> {
-    return this.http.post<Card>(this.helperService.generateUrl(`/board/${boardId}/list/${listID}/card`), { card }, httpOptions).pipe(
+    return this.http.post<Card>(this.helperService.generateUrl(`/board/${boardId}/list/${listID}/card`),  card , httpOptions).pipe(
       tap((card: Card) => this.helperService.log(`Added Card w/ name=${card.card_name}`)),
       catchError(this.helperService.handleError<Card>('addCard'))
     );
   }
 
   updateCard(boardId:number,listID: string, card: Card): Observable<Card> {
-    return this.http.put<Card>(this.helperService.generateUrl(`/board/${boardId}/list/${listID}/card/${card.card_id}`), { card }, httpOptions).pipe(
+    return this.http.put<Card>(this.helperService.generateUrl(`/board/${boardId}/list/${listID}/card/${card.card_id}`),card, httpOptions).pipe(
       tap(_ => this.helperService.log(`Updated List: name=${card.card_name}`)),
       catchError(this.helperService.handleError<Card>(`updateList name=${card.card_name}`))
     );
   }
 
-  deleteCard(boardId:number,listID: string, cardId: string): Observable<Card> {
-    return this.http.delete<Card>(this.helperService.generateUrl(`/board/${boardId}/list/${listID}/card/${cardId}`)).pipe(
-      tap(_ => this.helperService.log(`Deleted Card: name=${cardId}`)),
-      catchError(this.helperService.handleError<Card>(`deleteCard name=${cardId}`))
+  deleteCard(boardId:number,listID: string, card:Card): Observable<Card> {
+    return this.http.delete<Card>(this.helperService.generateUrl(`/board/${boardId}/list/${listID}/card/${card.card_id}`),httpOptions).pipe(
+      tap(_ => this.helperService.log(`Deleted Card: name=${card.card_id}`)),
+      catchError(this.helperService.handleError<Card>(`deleteCard name=${card.card_id}`))
     );
   }
   

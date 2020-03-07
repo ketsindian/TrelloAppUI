@@ -16,14 +16,14 @@ export class ListService {
   constructor(private http: HttpClient,private helperService:HelperService) { }
 
   getLists(board_id: number): Observable<List[]> {
-    return this.http.get<List[]>(this.helperService.generateUrl(`board/${board_id}/list`)).pipe(
+    return this.http.get<List[]>(this.helperService.generateUrl(`board/${board_id}/list`),httpOptions).pipe(
       tap(_ => this.helperService.log('Fetched Board Lists')),
       catchError(this.helperService.handleError('getLists', []))
     );
   }
 
   getListbyId(board_id: number,list_id: string): Observable<List[]> {
-    return this.http.get<List[]>(this.helperService.generateUrl(`board/${board_id}/list/${list_id}`)).pipe(
+    return this.http.get<List[]>(this.helperService.generateUrl(`board/${board_id}/list/${list_id}`),httpOptions).pipe(
       tap(_ => this.helperService.log('Fetched Board Lists')),
       catchError(this.helperService.handleError('getLists', []))
     );

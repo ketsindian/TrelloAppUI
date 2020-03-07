@@ -41,7 +41,6 @@ export class BoardComponent implements OnInit {
     const boardID = this.board.board_id;
     name = name.trim();
     if(!name) { return; }
-    console.log(boardID + " | " + name);
     this.listService.addList(boardID,{ list_name: name} as List).subscribe(list => {
       this.lists.push(list);
     });
@@ -50,6 +49,7 @@ export class BoardComponent implements OnInit {
   deleteListHandler(list: List) {
     const boardID = this.board.board_id;
     this.listService.deleteList(boardID,list).subscribe(deletedList => {
+      console.log(list);
       let listIndex = this.lists.indexOf(list);
       if(listIndex != -1) {
         this.lists.splice(listIndex, 1);

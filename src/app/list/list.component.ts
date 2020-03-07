@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
 
   addingCard: boolean = false;
   editingList: boolean = false;
-  editingCard: number;
+  editingCard: Card;
   cardLastName: string;
 
 
@@ -58,9 +58,10 @@ export class ListComponent implements OnInit {
 
   deleteCard(card:Card) {
     if(!card) { return; }
-    this.cardService.deleteCard(this.board.board_id,this.list.list_id,card.card_id ).subscribe(card => {
+    this.cardService.deleteCard(this.board.board_id,this.list.list_id,card ).subscribe(deletedCard => {
       console.log(card);
       let cardIndex = this.cards.indexOf(card);
+      console.log(card)
       if(cardIndex != -1) {
         this.cards.splice(cardIndex, 1);
       }
@@ -72,11 +73,9 @@ export class ListComponent implements OnInit {
     this.cardService.updateCard(this.board.board_id,this.list.list_id,card).subscribe(card => { });
   }
 
-  editCard(cardIndex: number) {
-    if(this.editingCard != cardIndex) {
-      this.editingCard = cardIndex;
-    } else {
-      this.editingCard = null;
-    }
+  editCard(card: Card) {
+    if(!this.editingCard)              { this.editingCard = card; }
+    else if(this.editingCard == card) { this.editingCard = null;  }
+    else                                { this.editingCard = card; }
   }
 }
