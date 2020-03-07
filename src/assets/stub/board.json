@@ -1,0 +1,13 @@
+[
+    {
+    "board_id": 75,
+    "board_name": "to-do",
+    "board_owner_id": 1
+},
+{
+    "board_id": 79,
+    "board_name": "done",
+    "board_owner_id": 1
+}
+
+]
