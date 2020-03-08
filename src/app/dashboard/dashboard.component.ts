@@ -14,8 +14,6 @@ export class DashboardComponent implements OnInit {
 
   constructor(private boardService:BoardServiceService) { }
 
-
-
   ngOnInit(): void {
     this.getBoards();
   }

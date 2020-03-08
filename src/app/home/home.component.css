@@ -1,0 +1,17 @@
+h2 {
+    color: #454545;
+    margin-bottom: 0px;
+    padding-left: var(--mdc-layout-grid-margin-desktop, 24px);
+  }
+  
+  mat-card {
+    cursor: pointer;
+  }
+  
+  .m-r-10 {
+    margin-right: 10px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
