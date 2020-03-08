@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { ListComponent } from './list/list.component'; 
 import { JwtInterceptor } from './services/JwtInterceptor';
 import { JwtErrorInterceptor } from './services/JwtErrorInterceptor';
+import { AuthGuard } from './services/AuthGuard';
 
 
 @NgModule({
@@ -33,8 +34,9 @@ import { JwtErrorInterceptor } from './services/JwtErrorInterceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtErrorInterceptor, multi: true },
+    AuthGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,AuthGuard]
 })
 export class AppModule { }
