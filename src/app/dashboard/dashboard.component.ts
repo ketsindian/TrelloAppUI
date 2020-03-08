@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   addBoard(board_name: string) {
     board_name = board_name.trim();
     if(!board_name) { return; }
-    this.boardService.addBoard({ board_name : board_name , board_owner_id : 1 } as Board).subscribe(board => {
+    this.boardService.addBoard({ board_name : board_name} as Board).subscribe(board => {
       this.boards.push(board);
     }); 
   }

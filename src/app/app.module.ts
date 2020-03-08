@@ -14,6 +14,7 @@ import { ListComponent } from './list/list.component';
 import { JwtInterceptor } from './services/JwtInterceptor';
 import { JwtErrorInterceptor } from './services/JwtErrorInterceptor';
 import { AuthGuard } from './services/AuthGuard';
+import { AuthGuardForHome } from './services/AuthGuardForHome';
 
 
 @NgModule({
@@ -35,8 +36,9 @@ import { AuthGuard } from './services/AuthGuard';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtErrorInterceptor, multi: true },
-    AuthGuard
+    AuthGuard,
+    AuthGuardForHome
   ],
-  bootstrap: [AppComponent,AuthGuard]
+  bootstrap: [AppComponent,AuthGuard,AuthGuardForHome]
 })
 export class AppModule { }
