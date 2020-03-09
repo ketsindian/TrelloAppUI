@@ -9,7 +9,7 @@ import { AppMaterialModule } from './app.material.module';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BoardComponent } from './board/board.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from './list/list.component'; 
 import { JwtInterceptor } from './services/JwtInterceptor';
 import { JwtErrorInterceptor } from './services/JwtErrorInterceptor';
@@ -31,7 +31,8 @@ import { AuthGuardForHome } from './services/AuthGuardForHome';
     BrowserAnimationsModule,
     AppMaterialModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

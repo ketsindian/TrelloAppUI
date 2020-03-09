@@ -3,6 +3,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { LoginRequest } from '../models/loginRequest';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +17,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private authService:AuthService, private router:Router) { }
 
-  email:string;
-  password:string;
+  user:User;
   loginRequest:LoginRequest;
   ngOnInit(): void {
 
@@ -24,8 +25,26 @@ export class HomeComponent implements OnInit {
 
   login() :void{
     if(!this.email || !this.password){return;}
-    this.authService.login({"email":this.email,"password":this.password}).subscribe(
+    this.authService.login({"email":String(this.email.value),"password":String(this.password.value)}).subscribe(
       res => this.router.navigate(["/dashboard"],
       ));
+  }
+
+  hide=true;
+  
+  password=new FormControl('',[Validators.required,])
+  email = new FormControl('', [Validators.required, Validators.email]);
+  
+
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  signup() : void{
+
   }
 }
