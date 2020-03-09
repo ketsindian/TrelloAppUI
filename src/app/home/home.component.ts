@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor(private authService:AuthService, private router:Router) { }
+  constructor(private authService:AuthService, private router:Router, private userService:UserService) { }
 
   user:User;
   loginRequest:LoginRequest;
@@ -31,7 +32,8 @@ export class HomeComponent implements OnInit {
   }
 
   hide=true;
-  
+  firstName=new FormControl('',[Validators.required,]);
+  lastName=new FormControl('',[Validators.required,]);
   password=new FormControl('',[Validators.required,])
   email = new FormControl('', [Validators.required, Validators.email]);
   
@@ -44,7 +46,10 @@ export class HomeComponent implements OnInit {
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
-  signup() : void{
-
+  signup() :void{
+    if(!this.email || !this.password || !this.firstName || !this.lastName || this.email.hasError('email')){return;}
+    this.userService.addUser({"user_id":"","email_id":String(this.email.value),"password":String(this.password.value),"first_name":String(this.firstName.value),"last_name":String(this.lastName.value)}).subscribe(
+      res => this.router.navigate(["/home"],
+      ));
   }
 }

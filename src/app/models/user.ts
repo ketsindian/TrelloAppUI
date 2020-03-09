@@ -1,8 +1,7 @@
 export class User {
     user_id:string;
     first_name:string;
-    last_nam:string;
+    last_name:string;
     email_id:string;
-    phone_number:string;
     password:string;
 }

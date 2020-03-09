@@ -40,6 +40,18 @@
          <hr>
           <div class="example-container">
             <p>
+              <mat-form-field appearance="fill">
+                <mat-label>Enter your First Name</mat-label>
+                <input matInput placeholder="First Name" [formControl]="firstName" required>
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="fill">
+                <mat-label>Enter your Last Name</mat-label>
+                <input matInput placeholder="Last Name" [formControl]="lastName" required>
+              </mat-form-field>
+            </p>
+            <p>
             <mat-form-field appearance="fill">
               <mat-label>Enter your email</mat-label>
               <input matInput placeholder="pat@example.com" [formControl]="email" required>
@@ -58,9 +70,9 @@
           </div>          
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button (click)="login()" color="primary">Login</button>
+          <button mat-raised-button (click)="signup()" color="primary">  Sign Up   </button>
         </mat-card-actions>
-      </mat-card>>
+      </mat-card>
     </mat-tab>
 </mat-tab-group>
 </div>
