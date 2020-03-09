@@ -27,6 +27,7 @@
               <mat-form-field  class="example-full-width">
               <mat-label>Share With</mat-label>
               <mat-select [(ngModel)]="unSharedUser" name="unSharedUser">
+                <mat-option>--</mat-option>
                 <mat-option *ngFor="let unSharedUser of unSharedUsers" [value]="unSharedUser">
                   {{unSharedUser.email_id}}
                 </mat-option>
@@ -40,6 +41,7 @@
               <mat-form-field  class="example-full-width">
               <mat-label>UnShare With</mat-label>
               <mat-select [(ngModel)]="sharedUser" name="sharedUser" >
+                <mat-option>--</mat-option>
                 <mat-option *ngFor="let sharedUser of sharedUsers" [value]="sharedUser">
                   {{sharedUser.email_id}}
                 </mat-option>

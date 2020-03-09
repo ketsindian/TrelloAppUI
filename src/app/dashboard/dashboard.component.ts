@@ -81,6 +81,9 @@ export class DashboardComponent implements OnInit {
   }
 
   shareBoardClick(board: Board) {
+    if(this.unSharingBoard){
+      this.unSharingBoard=null;
+    }
     if(!this.sharingBoard){ 
       this.sharingBoard = board; 
       this.getUnSharedUsers(board);
@@ -95,6 +98,9 @@ export class DashboardComponent implements OnInit {
   }
 
   unShareBoardClick(board: Board) {
+    if(this.sharingBoard){
+      this.sharingBoard=null;
+    }
     if(!this.unSharingBoard){ 
       this.unSharingBoard = board; 
       this.getSharedUsers(board);
