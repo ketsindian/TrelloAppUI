@@ -3,7 +3,10 @@
     <div class="mdc-layout-grid">
       <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell--span-3" *ngFor="let board of boards">
-          <mat-card class="board-card" routerLink="/b/{{board.board_id}}">
+            <mat-card class="board-card" routerLink="/b/{{board.board_id}}">
+            <!-- <mat-card-actions>
+              <button mat-raised-button color="primary" class="m-r-10" routerLink="/b/{{board.board_id}}"><span class="fas fa-enter"></span></button>
+            </mat-card-actions> -->
             <mat-card-header>
               <mat-card-title>{{board.board_name}}</mat-card-title>
               <mat-card-subtitle>{{board.board_id}}</mat-card-subtitle>
@@ -15,8 +18,64 @@
             </mat-card-content>
             <mat-card-actions>
               <button mat-raised-button color="primary" class="m-r-10" (click)="editBoard(board); $event.stopPropagation();"><span class="fas fa-edit"></span></button>
-              <button mat-raised-button color="primary" (click)="deleteBoard(board); $event.stopPropagation();"><span class="fas fa-trash"></span></button>
+              <button mat-raised-button color="primary" class="m-r-10" (click)="deleteBoard(board); $event.stopPropagation();"><span class="fas fa-trash"></span></button>
+              <button mat-raised-button *ngIf="board.user_type=='OWNER'" color="primary" class="m-r-10" (click)="shareBoardClick(board); $event.stopPropagation();"><span class="fas fa-share"></span></button>
+              <button mat-raised-button *ngIf="board.user_type=='OWNER'" color="primary" class="m-r-10" (click)="unShareBoardClick(board); $event.stopPropagation();"><span class="fas fa-share fa-rotate-180"></span></button>
             </mat-card-actions>
+            <form class="example-form" (click)="$event.stopPropagation();">
+              <div *ngIf="sharingBoard == board">
+              <mat-form-field  class="example-full-width">
+              <mat-label>Share With</mat-label>
+              <mat-select [(ngModel)]="unSharedUser" name="unSharedUser">
+                <mat-option *ngFor="let unSharedUser of unSharedUsers" [value]="unSharedUser">
+                  {{unSharedUser.email_id}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-card-actions>
+              <button mat-raised-button (click)="shareBoard(unSharedUser.user_id);shareBoardClick(board);">share</button>
+            </mat-card-actions>
+            </div>
+            <div *ngIf="unSharingBoard == board">
+              <mat-form-field  class="example-full-width">
+              <mat-label>UnShare With</mat-label>
+              <mat-select [(ngModel)]="sharedUser" name="sharedUser" >
+                <mat-option *ngFor="let sharedUser of sharedUsers" [value]="sharedUser">
+                  {{sharedUser.email_id}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-card-actions>
+              <button mat-raised-button (click)="unShareBoard(sharedUser.user_id);unShareBoardClick(board);">unshare</button>
+            </mat-card-actions>
+            </div>
+              <!-- <mat-form-field *ngIf="sharingBoard == board" class="example-full-width">
+                <input (onSelect)="shareBoard(value);$event.stopPropagation();"  type="text"
+                       placeholder="share with"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControl"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let unSharedUser of unSharedUsers" [value]="unSharedUser">
+                    {{unSharedUser.email_id}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-form-field *ngIf="sharingBoard == board" class="example-full-width">
+                <input type="text"
+                       placeholder="unshare with"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControl"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let sharedUser of sharedUsers" [value]="sharedUser">
+                    {{sharedUser.email_id}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field> -->
+            </form>
           </mat-card>
         </div>
         <div class="mdc-layout-grid__cell--span-3">

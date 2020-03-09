@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Board } from './../models/board';
 import { HelperService } from './helper.service';
+import { User } from '../models/user';
 
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
@@ -28,6 +29,34 @@ export class BoardServiceService {
     return this.http.get<Board>(this.helperService.generateUrl(`board/${board_id}`)).pipe(
       tap(_ => this.helperService.log(`Fetched Board: id=${board_id}`)),
       catchError(this.helperService.handleError<Board>(`getBoard id=${board_id}`))
+    );
+  }
+
+  getSharedUsersForBoard(board_id:string):Observable<User[]>{
+    return this.http.get<User[]>(this.helperService.generateUrl(`board/${board_id}/sharedUsers`)).pipe(
+      tap(_ => this.helperService.log(`Fetched Board Shared Users for : id=${board_id}`)),
+      catchError(this.helperService.handleError<User[]>(`getSharedUsersForBoard id=${board_id}`))
+    );
+  }
+
+  getUnSharedUsersForBoard(board_id:string):Observable<User[]>{
+    return this.http.get<User[]>(this.helperService.generateUrl(`board/${board_id}/unsharedUsers`)).pipe(
+      tap(_ => this.helperService.log(`Fetched Board UnShared Users for : id=${board_id}`)),
+      catchError(this.helperService.handleError<User[]>(`getUnSharedUsersForBoard id=${board_id}`))
+    );
+  }
+
+  sharedBoard(board:Board):Observable<Board>{
+    return this.http.post<Board>(this.helperService.generateUrl(`board/${board.board_id}/shareBoard`),board,httpOptions).pipe(
+      tap(_ => this.helperService.log(`board ${board.board_id} shared to user: ${board.secondary_user_id} `)),
+      catchError(this.helperService.handleError<Board>(`sharedBoard id=${board.board_id}`))
+    );
+  }
+
+  unSharedBoard(board:Board):Observable<Board>{
+    return this.http.post<Board>(this.helperService.generateUrl(`board/${board.board_id}/unShareBoard`),board,httpOptions).pipe(
+      tap(_ => this.helperService.log(`board ${board.board_id} shared to user: ${board.secondary_user_id} `)),
+      catchError(this.helperService.handleError<Board>(`sharedBoard id=${board.board_id}`))
     );
   }
 

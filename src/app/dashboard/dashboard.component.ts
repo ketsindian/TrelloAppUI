@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Board } from '../models/board';
 import { BoardServiceService } from '../services/board-service.service';
+import { User } from '../models/user';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +13,12 @@ export class DashboardComponent implements OnInit {
 
   boards: Board[];
   editingBoard : Board;
+  sharedUsers: User[];
+  unSharedUsers: User[];
+  sharingBoard: Board;
+  unSharingBoard:Board;
+  unSharedUser:User;
+  sharedUser:User;
 
   constructor(private boardService:BoardServiceService) { }
 
@@ -18,8 +26,29 @@ export class DashboardComponent implements OnInit {
     this.getBoards();
   }
 
+  myControl = new FormControl();  
+
   getBoards(): void {
     this.boardService.getBoards().subscribe(boards => this.boards = boards);
+  }
+
+  getSharedUsers(board:Board): void {
+    this.boardService.getSharedUsersForBoard(String(board.board_id)).subscribe(sharedUsers => this.sharedUsers = sharedUsers);
+  }
+
+  getUnSharedUsers(board:Board): void {
+    this.boardService.getUnSharedUsersForBoard(String(board.board_id)).subscribe(unSharedUsers => this.unSharedUsers = unSharedUsers);
+  }
+
+  shareBoard(userId:string):void{
+    this.sharingBoard.secondary_user_id=userId;    
+    this.boardService.sharedBoard(this.sharingBoard).subscribe(_=>{ })
+  }
+
+  unShareBoard(userId:string):void{
+    this.unSharingBoard.secondary_user_id=userId;
+    console.log('unsharing for'+userId);
+    this.boardService.unSharedBoard(this.unSharingBoard).subscribe(_=>{ })
   }
 
   addBoard(board_name: string) {
@@ -51,4 +80,32 @@ export class DashboardComponent implements OnInit {
     else                                { this.editingBoard = board; }
   }
 
+  shareBoardClick(board: Board) {
+    if(!this.sharingBoard){ 
+      this.sharingBoard = board; 
+      this.getUnSharedUsers(board);
+    }
+    else if(this.sharingBoard == board) {
+       this.sharingBoard = null;  
+    }
+    else{ 
+      this.sharingBoard = board; 
+      this.getUnSharedUsers(board);
+    }
+  }
+
+  unShareBoardClick(board: Board) {
+    if(!this.unSharingBoard){ 
+      this.unSharingBoard = board; 
+      this.getSharedUsers(board);
+    }
+    else if(this.unSharingBoard == board) { 
+      this.unSharingBoard = null;  
+    }
+    else{ 
+      this.unSharingBoard = board; 
+      this.getSharedUsers(board);
+    }
+  }
+  
 }

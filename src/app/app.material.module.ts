@@ -9,7 +9,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatSnackBarModule,
     MatMenuModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule,
+    MatSelectModule
   ],
   exports: [
     MatInputModule,
@@ -34,7 +37,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatSnackBarModule,
     MatMenuModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule,
+    MatSelectModule
     ]
 })
 export class AppMaterialModule { }

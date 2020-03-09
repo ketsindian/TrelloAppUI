@@ -49,7 +49,6 @@ export class HomeComponent implements OnInit {
   signup() :void{
     if(!this.email || !this.password || !this.firstName || !this.lastName || this.email.hasError('email')){return;}
     this.userService.addUser({"user_id":"","email_id":String(this.email.value),"password":String(this.password.value),"first_name":String(this.firstName.value),"last_name":String(this.lastName.value)}).subscribe(
-      res => this.router.navigate(["/home"],
-      ));
+      res => this.router.navigate(["/dashboard"],));
   }
 }
