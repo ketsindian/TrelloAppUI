@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Card } from '../models/card';
 import { HelperService } from './helper.service';
+import { ListCardChange } from '../models/listCardChange';
 
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
@@ -39,6 +40,13 @@ export class CardService {
     return this.http.delete<Card>(this.helperService.generateUrl(`board/${boardId}/list/${listID}/card/${card.card_id}`),httpOptions).pipe(
       tap(_ => this.helperService.log(`Deleted Card: name=${card.card_id}`)),
       catchError(this.helperService.handleError<Card>(`deleteCard name=${card.card_id}`))
+    );
+  }
+
+  changeCardList(boardId:number,listID: string,cardId:string,listCardChange:ListCardChange): Observable<Card>{
+    return this.http.post<Card>(this.helperService.generateUrl(`board/${boardId}/list/${listID}/card/${cardId}`),  listCardChange , httpOptions).pipe(
+      tap((card: Card) => this.helperService.log(`updated card with =${cardId}`)),
+      catchError(this.helperService.handleError<Card>('changeCardList'))
     );
   }
   

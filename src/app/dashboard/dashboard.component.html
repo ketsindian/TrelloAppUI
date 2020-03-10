@@ -1,5 +1,5 @@
 <div class="boards-wrapper">
-    <h2><i class="fas fa-border-all"></i> Boards</h2>
+    <h2><i class="fas fa-border-all"></i>Boards</h2>
     <div class="mdc-layout-grid">
       <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell--span-3" *ngFor="let board of boards">
@@ -18,7 +18,7 @@
             </mat-card-content>
             <mat-card-actions>
               <button mat-raised-button color="primary" class="m-r-10" (click)="editBoard(board); $event.stopPropagation();"><span class="fas fa-edit"></span></button>
-              <button mat-raised-button color="primary" class="m-r-10" (click)="deleteBoard(board); $event.stopPropagation();"><span class="fas fa-trash"></span></button>
+              <button mat-raised-button *ngIf="board.user_type=='OWNER'" color="primary" class="m-r-10" (click)="deleteBoard(board); $event.stopPropagation();"><span class="fas fa-trash"></span></button>
               <button mat-raised-button *ngIf="board.user_type=='OWNER'" color="primary" class="m-r-10" (click)="shareBoardClick(board); $event.stopPropagation();"><span class="fas fa-share"></span></button>
               <button mat-raised-button *ngIf="board.user_type=='OWNER'" color="primary" class="m-r-10" (click)="unShareBoardClick(board); $event.stopPropagation();"><span class="fas fa-share fa-rotate-180"></span></button>
             </mat-card-actions>

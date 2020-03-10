@@ -15,6 +15,8 @@ import { JwtInterceptor } from './services/JwtInterceptor';
 import { JwtErrorInterceptor } from './services/JwtErrorInterceptor';
 import { AuthGuard } from './services/AuthGuard';
 import { AuthGuardForHome } from './services/AuthGuardForHome';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 @NgModule({

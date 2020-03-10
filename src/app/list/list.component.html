@@ -12,8 +12,9 @@
         <input matInput [(ngModel)]="list.list_name" (keyup.enter)="updateList(list); editingList = false;" placeholder="New Name" value="">
       </mat-form-field>
       <div class="full-width" *ngIf="cards">
+      <div cdkDropList [cdkDropListData]="cards" (cdkDropListDropped)="drop($event)">
         <div *ngFor="let card of cards; index as i;">
-          <mat-card class="card">
+          <mat-card class="card" cdkDrag>
             <mat-card-header>
               <mat-card-title>{{card.card_name}}</mat-card-title>
               <mat-card-subtitle>{{card.card_id}}</mat-card-subtitle>
@@ -27,6 +28,7 @@
             </mat-card-actions>
           </mat-card>
         </div>
+      </div>
       </div>
     </mat-card-content>
     <mat-card-actions>

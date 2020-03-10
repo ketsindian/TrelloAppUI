@@ -11,6 +11,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     MatTabsModule,
     MatAutocompleteModule,
-    MatSelectModule
+    MatSelectModule,
+    DragDropModule
   ],
   exports: [
     MatInputModule,
@@ -39,7 +42,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     MatTabsModule,
     MatAutocompleteModule,
-    MatSelectModule
-    ]
+    MatSelectModule,
+    DragDropModule
+  ]
 })
 export class AppMaterialModule { }
