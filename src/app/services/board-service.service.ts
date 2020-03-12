@@ -81,4 +81,11 @@ export class BoardServiceService {
     );
   }
 
+  getFromTrello(board_id:string){
+    return this.http.get<Board>(this.helperService.generateUrl(`fetchboard/${board_id}`)).pipe(
+      tap(_ => this.helperService.log(`Fetched Board from trello: id=${board_id}`)),
+      catchError(this.helperService.handleError<Board>(`getFromTrello id=${board_id}`))
+    );
+  }
+
 }

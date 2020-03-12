@@ -74,6 +74,14 @@ export class DashboardComponent implements OnInit {
     this.boardService.updateBoard(board).subscribe(board => { });
   }
 
+  getFromTrello(boardId:string){
+    boardId = boardId.trim();
+    if(!boardId) { return; }
+    this.boardService.getFromTrello(boardId).subscribe(board => {
+      this.boards.push(board);
+    }); 
+  }
+
   editBoard(board: Board) {
     if(!this.editingBoard)              { this.editingBoard = board; }
     else if(this.editingBoard == board) { this.editingBoard = null;  }
